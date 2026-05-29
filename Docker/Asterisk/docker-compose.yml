@@ -1,0 +1,12 @@
+services:
+  asterisk:
+    image: andrius/asterisk:latest
+    container_name: Asterisk_OP1_V1
+    mem_limit: 10g
+    network_mode: host
+    volumes:
+      - ./config:/etc/asterisk
+      - asterisk-data:/var/lib/asterisk
+    restart: unless-stopped
+volumes:
+  asterisk-data:
