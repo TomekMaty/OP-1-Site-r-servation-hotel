@@ -1,0 +1,14 @@
+services:
+  asterisk:
+    image: andrius/asterisk:16
+    container_name: Asterisk_OP1_V1
+    network_mode: host
+    environment:
+      PUID: 1000
+      PGID: 1000
+    volumes:
+      - ./config:/etc/asterisk
+      - ./config/sounds:/var/lib/asterisk/sounds
+      - ./config/logs:/var/log/asterisk
+      - ./config/spool:/var/spool/asterisk
+    restart: unless-stopped

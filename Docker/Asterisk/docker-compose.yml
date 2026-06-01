@@ -7,6 +7,6 @@ services:
     volumes:
       - ./config:/etc/asterisk
       - asterisk-data:/var/lib/asterisk
-    restart: unless-stopped
+    restart: on-failure
 volumes:
   asterisk-data:

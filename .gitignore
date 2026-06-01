@@ -1,0 +1,9 @@
+# Logs Asterisk
+Docker/*/config/logs/
+Docker/*/config/spool/
+Docker/*/config/sounds/
+
+# Fichiers de logs
+*.log
+queue_log
+Master.csv
