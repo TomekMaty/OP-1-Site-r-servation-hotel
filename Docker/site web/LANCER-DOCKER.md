@@ -33,6 +33,14 @@ cd ..
 ```
 
 ## 2. Lancer tous les containers
+
+Depuis le dossier `Docker/` (un cran au-dessus) pour lancer tous les services en une commande :
+```powershell
+cd ..
+docker-compose up -d --build
+```
+
+Ou uniquement le site web depuis ce dossier :
 ```powershell
 docker-compose up -d --build
 ```

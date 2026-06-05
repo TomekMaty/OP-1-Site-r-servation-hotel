@@ -14,12 +14,15 @@ Master.csv
 
 # Fichiers de variables d'environnement contenant les clés secrètes (JWT, Telegram, etc.)
 # Ne jamais commiter ces fichiers — utiliser .env.example comme modèle
-site web/.env
-site web/**/.env
-portail-captif/.env
+Docker/site web/.env
+Docker/site web/**/.env
+Docker/portail-captif/.env
 
 # Dépendances npm — se réinstallent avec "npm install", inutile de les versionner (300-500 Mo)
-site web/maison-saclay/node_modules/
+Docker/site web/maison-saclay/node_modules/
 
 # Build de production — généré automatiquement avec "npm run build"
-site web/maison-saclay/dist/
+Docker/site web/maison-saclay/dist/
+
+# Fichiers de sauvegarde automatique
+*.bkp
