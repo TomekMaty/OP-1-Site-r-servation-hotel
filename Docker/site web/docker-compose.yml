@@ -52,7 +52,7 @@ services:
     container_name: maison_nginx
     restart: unless-stopped
     ports:
-      - "80:80"
+      - "8085:80"
     volumes:
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
       - ./maison-saclay/dist:/var/www/frontend/dist:ro
