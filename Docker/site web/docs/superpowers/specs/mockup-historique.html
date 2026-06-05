@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maquette — Historique · Maison Saclay</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --charcoal: #1C1C1C;
+  --ivory: #F5F0E8;
+  --gold: #C9A96E;
+  --border: #E8E2D8;
+  --muted: #8A8278;
+  --bg: #FAFAF8;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--charcoal);
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--charcoal);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--ivory);
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.header-nav a {
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.45);
+  text-decoration: none;
+}
+
+.header-nav a.active { color: var(--ivory); }
+
+.header-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  color: var(--charcoal);
+}
+
+/* ── PAGE HERO ── */
+.page-hero {
+  background: var(--charcoal);
+  padding: 48px 64px 56px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.eyebrow {
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.page-hero h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: var(--ivory);
+  line-height: 1.1;
+}
+
+.page-hero h1 em {
+  font-style: italic;
+  color: rgba(245,240,232,0.4);
+}
+
+/* ── TABS ── */
+.tabs-bar {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  padding: 0 64px;
+}
+
+.tab-btn {
+  padding: 16px 0;
+  margin-right: 40px;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: none;
+  background: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.tab-btn.active { color: var(--charcoal); }
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0; right: 0;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* ── CONTENT ── */
+.content {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 48px 64px;
+}
+
+/* Timeline */
+.timeline {
+  position: relative;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 8px;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+.timeline-month {
+  margin-bottom: 40px;
+}
+
+.month-label {
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  padding-left: 24px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.month-label::before {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--gold);
+  background: var(--bg);
+}
+
+/* Order card */
+.order-card {
+  background: white;
+  border: 1px solid var(--border);
+  margin-left: 24px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.order-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+}
+
+.order-header-left {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.order-id {
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.order-date {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--charcoal);
+}
+
+.order-room {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--muted);
+  padding-left: 20px;
+  border-left: 1px solid var(--border);
+}
+
+.order-header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border: 1px solid;
+}
+
+.status-delivered {
+  color: #2D6A4F;
+  border-color: #B7E4C7;
+  background: #F0FFF4;
+}
+
+.status-preparing {
+  color: #92400E;
+  border-color: #FDE68A;
+  background: #FFFBEB;
+}
+
+.order-total {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--charcoal);
+}
+
+.chevron {
+  font-size: 12px;
+  color: var(--muted);
+  transition: transform 0.2s;
+}
+
+/* Order items — expanded */
+.order-items {
+  padding: 0 24px;
+}
+
+.order-item-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.order-item-row:last-child { border-bottom: none; }
+
+.order-item-img {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.order-item-info { flex: 1; }
+
+.order-item-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--charcoal);
+}
+
+.order-item-qty {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--muted);
+  margin-top: 2px;
+}
+
+.order-item-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--charcoal);
+}
+
+/* Order note */
+.order-note {
+  padding: 12px 24px;
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.order-note-text {
+  font-style: italic;
+  color: var(--charcoal);
+}
+
+/* Footer reorder */
+.order-footer {
+  padding: 14px 24px;
+  background: white;
+  border-top: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.order-footer-time {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--muted);
+}
+
+.btn-reorder {
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  background: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btn-reorder:hover {
+  background: var(--gold);
+  color: var(--charcoal);
+}
+
+/* Empty state */
+.empty-month .order-card {
+  background: none;
+  border: 1px dashed var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* CTA */
+.cta-new-order {
+  background: var(--charcoal);
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 48px;
+  margin-left: 24px;
+}
+
+.cta-new-order h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--ivory);
+  margin-bottom: 4px;
+}
+
+.cta-new-order p {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(245,240,232,0.4);
+}
+
+.btn-gold {
+  padding: 14px 28px;
+  background: var(--gold);
+  color: var(--charcoal);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.badge {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  background: var(--gold);
+  color: var(--charcoal);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  z-index: 999;
+}
+</style>
+</head>
+<body>
+
+<div class="badge">Maquette UX</div>
+
+<!-- ── HEADER ── -->
+<header>
+  <span class="header-logo">Maison Saclay</span>
+  <nav class="header-nav">
+    <a href="#">Chambres</a>
+    <a href="#">Spa</a>
+    <a href="#">Restaurant</a>
+    <a href="#" class="active">Mon espace</a>
+  </nav>
+  <div class="header-avatar">M</div>
+</header>
+
+<!-- ── PAGE HERO ── -->
+<div class="page-hero">
+  <div>
+    <span class="eyebrow">Espace client</span>
+    <h1>Mes commandes<br><em>room service</em></h1>
+  </div>
+</div>
+
+<!-- ── TABS ── -->
+<div class="tabs-bar">
+  <button class="tab-btn">Mes réservations</button>
+  <button class="tab-btn active">Mes commandes</button>
+</div>
+
+<!-- ── CONTENT ── -->
+<div class="content">
+
+  <div class="timeline">
+
+    <!-- Juillet 2026 -->
+    <div class="timeline-month">
+      <p class="month-label">Juillet 2026</p>
+
+      <!-- Commande 1 — livrée, dépliée -->
+      <div class="order-card">
+        <div class="order-header">
+          <div class="order-header-left">
+            <span class="order-id">#CMD-0042</span>
+            <span class="order-date">12 juillet 2026 · 08h47</span>
+            <span class="order-room">Chambre 204 — Suite Panoramique</span>
+          </div>
+          <div class="order-header-right">
+            <span class="status-badge status-delivered">● Livré</span>
+            <span class="order-total">50€</span>
+            <span class="chevron">▾</span>
+          </div>
+        </div>
+
+        <!-- Items -->
+        <div class="order-items">
+          <div class="order-item-row">
+            <img class="order-item-img" src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=150&q=80" alt="">
+            <div class="order-item-info">
+              <p class="order-item-name">Brunch Signature</p>
+              <p class="order-item-qty">× 1</p>
+            </div>
+            <span class="order-item-price">38€</span>
+          </div>
+          <div class="order-item-row">
+            <img class="order-item-img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=150&q=80" alt="">
+            <div class="order-item-info">
+              <p class="order-item-name">Café Arabica</p>
+              <p class="order-item-qty">× 2</p>
+            </div>
+            <span class="order-item-price">12€</span>
+          </div>
+        </div>
+
+        <!-- Note -->
+        <div class="order-note">
+          <span style="color:var(--muted)">Note :</span>
+          <span class="order-note-text">Sans sucre pour les cafés</span>
+        </div>
+
+        <div class="order-footer">
+          <span class="order-footer-time">Livré à 09h12 · 25 minutes</span>
+          <button class="btn-reorder">Commander à nouveau</button>
+        </div>
+      </div>
+
+      <!-- Commande 2 — en préparation -->
+      <div class="order-card">
+        <div class="order-header">
+          <div class="order-header-left">
+            <span class="order-id">#CMD-0041</span>
+            <span class="order-date">11 juillet 2026 · 19h30</span>
+            <span class="order-room">Chambre 204 — Suite Panoramique</span>
+          </div>
+          <div class="order-header-right">
+            <span class="status-badge status-preparing">◌ En préparation</span>
+            <span class="order-total">56€</span>
+            <span class="chevron">▸</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Juin 2026 -->
+    <div class="timeline-month">
+      <p class="month-label">Juin 2026</p>
+
+      <!-- Commande 3 — livrée, repliée -->
+      <div class="order-card">
+        <div class="order-header">
+          <div class="order-header-left">
+            <span class="order-id">#CMD-0038</span>
+            <span class="order-date">22 juin 2026 · 12h15</span>
+            <span class="order-room">Chambre 101 — Chambre Deluxe Jardin</span>
+          </div>
+          <div class="order-header-right">
+            <span class="status-badge status-delivered">● Livré</span>
+            <span class="order-total">82€</span>
+            <span class="chevron">▸</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="order-card">
+        <div class="order-header">
+          <div class="order-header-left">
+            <span class="order-id">#CMD-0035</span>
+            <span class="order-date">21 juin 2026 · 08h02</span>
+            <span class="order-room">Chambre 101 — Chambre Deluxe Jardin</span>
+          </div>
+          <div class="order-header-right">
+            <span class="status-badge status-delivered">● Livré</span>
+            <span class="order-total">28€</span>
+            <span class="chevron">▸</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CTA nouvelle commande -->
+  <div class="cta-new-order">
+    <div>
+      <h3>Envie d'autre chose ?</h3>
+      <p>Room Service disponible tous les jours de 7h à 22h</p>
+    </div>
+    <button class="btn-gold">Accéder au menu</button>
+  </div>
+
+</div>
+</body>
+</html>

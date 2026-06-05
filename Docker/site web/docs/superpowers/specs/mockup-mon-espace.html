@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maquette — Mon Espace · Maison Saclay</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --charcoal: #1C1C1C;
+  --ivory: #F5F0E8;
+  --gold: #C9A96E;
+  --border: #E8E2D8;
+  --muted: #8A8278;
+  --bg: #FAFAF8;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--charcoal);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--charcoal);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--ivory);
+  letter-spacing: 0.04em;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.header-nav a {
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245,240,232,0.45);
+  text-decoration: none;
+}
+
+.header-nav a.active {
+  color: var(--ivory);
+}
+
+.header-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--charcoal);
+  cursor: pointer;
+}
+
+/* ── PAGE HERO MINI ── */
+.page-hero {
+  background: var(--charcoal);
+  padding: 48px 48px 56px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.page-hero-left .eyebrow {
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.page-hero-left h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.8rem;
+  font-weight: 300;
+  color: var(--ivory);
+  line-height: 1.1;
+}
+
+.page-hero-left h1 em {
+  font-style: italic;
+  color: rgba(245,240,232,0.45);
+}
+
+.page-hero-right {
+  text-align: right;
+}
+
+.page-hero-right .greeting {
+  font-size: 12px;
+  font-weight: 300;
+  color: rgba(245,240,232,0.45);
+  margin-bottom: 4px;
+}
+
+.page-hero-right .name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.4rem;
+  font-weight: 300;
+  color: var(--ivory);
+}
+
+/* ── TABS ── */
+.tabs-bar {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  padding: 0 48px;
+}
+
+.tab-btn {
+  padding: 16px 0;
+  margin-right: 40px;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: none;
+  background: none;
+  cursor: pointer;
+  position: relative;
+}
+
+.tab-btn.active {
+  color: var(--charcoal);
+}
+
+.tab-btn.active::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  left: 0; right: 0;
+  height: 1px;
+  background: var(--gold);
+}
+
+/* ── CONTENT ── */
+.content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 48px;
+}
+
+/* Stats row */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  background: var(--border);
+  margin-bottom: 48px;
+  border: 1px solid var(--border);
+}
+
+.stat-card {
+  background: white;
+  padding: 28px 24px;
+}
+
+.stat-label {
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 10px;
+  display: block;
+}
+
+.stat-value {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.2rem;
+  font-weight: 300;
+  color: var(--charcoal);
+  line-height: 1;
+}
+
+.stat-suffix {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--muted);
+  margin-left: 4px;
+}
+
+/* Section title */
+.section-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.section-title h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--charcoal);
+}
+
+.section-title a {
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold);
+  text-decoration: none;
+}
+
+/* Booking cards */
+.booking-card {
+  background: white;
+  border: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 180px 1fr auto;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.booking-img {
+  height: 140px;
+  object-fit: cover;
+  width: 100%;
+  display: block;
+}
+
+.booking-body {
+  padding: 24px 28px;
+}
+
+.booking-room {
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 6px;
+  display: block;
+}
+
+.booking-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.35rem;
+  font-weight: 300;
+  color: var(--charcoal);
+  margin-bottom: 14px;
+}
+
+.booking-meta {
+  display: flex;
+  gap: 24px;
+}
+
+.booking-meta-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.booking-meta-item .meta-label {
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+
+.booking-meta-item .meta-val {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--charcoal);
+}
+
+.booking-right {
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  border-left: 1px solid var(--border);
+  min-width: 160px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  padding: 5px 10px;
+  border: 1px solid;
+}
+
+.status-confirmed {
+  color: #2D6A4F;
+  border-color: #B7E4C7;
+  background: #F0FFF4;
+}
+
+.status-pending {
+  color: #92400E;
+  border-color: #FDE68A;
+  background: #FFFBEB;
+}
+
+.booking-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--charcoal);
+}
+
+.booking-price small {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--muted);
+  display: block;
+  text-align: right;
+}
+
+.btn-room-service {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--charcoal);
+  color: var(--ivory);
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+  white-space: nowrap;
+}
+
+/* CTA room service */
+.cta-room-service {
+  margin-top: 48px;
+  background: var(--charcoal);
+  padding: 40px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cta-room-service .cta-text h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--ivory);
+  margin-bottom: 6px;
+}
+
+.cta-room-service .cta-text p {
+  font-size: 13px;
+  font-weight: 300;
+  color: rgba(245,240,232,0.45);
+}
+
+.btn-gold {
+  padding: 14px 28px;
+  background: var(--gold);
+  color: var(--charcoal);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+/* Badge maquette */
+.badge {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  background: var(--gold);
+  color: var(--charcoal);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  z-index: 999;
+}
+</style>
+</head>
+<body>
+
+<div class="badge">Maquette UX</div>
+
+<!-- ── HEADER ── -->
+<header>
+  <span class="header-logo">Maison Saclay</span>
+  <nav class="header-nav">
+    <a href="#">Chambres</a>
+    <a href="#">Spa</a>
+    <a href="#">Restaurant</a>
+    <a href="#" class="active">Mon espace</a>
+  </nav>
+  <div class="header-avatar">M</div>
+</header>
+
+<!-- ── PAGE HERO ── -->
+<div class="page-hero">
+  <div class="page-hero-left">
+    <span class="eyebrow">Espace client</span>
+    <h1>Bienvenue,<br><em>Marie Dupont</em></h1>
+  </div>
+  <div class="page-hero-right">
+    <p class="greeting">Client depuis</p>
+    <p class="name">Juin 2026</p>
+  </div>
+</div>
+
+<!-- ── TABS ── -->
+<div class="tabs-bar">
+  <button class="tab-btn active">Mes réservations</button>
+  <button class="tab-btn">Mes commandes</button>
+</div>
+
+<!-- ── CONTENT ── -->
+<div class="content">
+
+  <!-- Stats -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <span class="stat-label">Séjours</span>
+      <div class="stat-value">3</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Nuits</span>
+      <div class="stat-value">8<span class="stat-suffix">nuits</span></div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Commandes</span>
+      <div class="stat-value">5</div>
+    </div>
+    <div class="stat-card">
+      <span class="stat-label">Total dépensé</span>
+      <div class="stat-value">4<span class="stat-suffix">820€</span></div>
+    </div>
+  </div>
+
+  <!-- Réservations actives -->
+  <div class="section-title">
+    <h2>Réservations actives</h2>
+  </div>
+
+  <!-- Booking card 1 — confirmée -->
+  <div class="booking-card">
+    <img class="booking-img" src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400&q=80" alt="Suite Panoramique">
+    <div class="booking-body">
+      <span class="booking-room">Suite</span>
+      <p class="booking-name">Suite Panoramique</p>
+      <div class="booking-meta">
+        <div class="booking-meta-item">
+          <span class="meta-label">Arrivée</span>
+          <span class="meta-val">10 juil. 2026</span>
+        </div>
+        <div class="booking-meta-item">
+          <span class="meta-label">Départ</span>
+          <span class="meta-val">13 juil. 2026</span>
+        </div>
+        <div class="booking-meta-item">
+          <span class="meta-label">Durée</span>
+          <span class="meta-val">3 nuits</span>
+        </div>
+        <div class="booking-meta-item">
+          <span class="meta-label">Voyageurs</span>
+          <span class="meta-val">2 personnes</span>
+        </div>
+      </div>
+    </div>
+    <div class="booking-right">
+      <div class="status-badge status-confirmed">● Confirmée</div>
+      <div>
+        <div class="booking-price">
+          2 040€
+          <small>3 nuits · 680€/nuit</small>
+        </div>
+      </div>
+      <button class="btn-room-service">Room Service →</button>
+    </div>
+  </div>
+
+  <!-- Booking card 2 — en attente -->
+  <div class="booking-card">
+    <img class="booking-img" src="https://images.unsplash.com/photo-1560185007-cde436f6a4d0?w=400&q=80" alt="Penthouse">
+    <div class="booking-body">
+      <span class="booking-room">Penthouse</span>
+      <p class="booking-name">Penthouse Saclay</p>
+      <div class="booking-meta">
+        <div class="booking-meta-item">
+          <span class="meta-label">Arrivée</span>
+          <span class="meta-val">1 août 2026</span>
+        </div>
+        <div class="booking-meta-item">
+          <span class="meta-label">Départ</span>
+          <span class="meta-val">4 août 2026</span>
+        </div>
+        <div class="booking-meta-item">
+          <span class="meta-label">Durée</span>
+          <span class="meta-val">3 nuits</span>
+        </div>
+        <div class="booking-meta-item">
+          <span class="meta-label">Voyageurs</span>
+          <span class="meta-val">4 personnes</span>
+        </div>
+      </div>
+    </div>
+    <div class="booking-right">
+      <div class="status-badge status-pending">◌ En attente</div>
+      <div>
+        <div class="booking-price">
+          5 400€
+          <small>3 nuits · 1 800€/nuit</small>
+        </div>
+      </div>
+      <button class="btn-room-service" style="background: #E8E2D8; color: var(--charcoal);">Séjour à venir</button>
+    </div>
+  </div>
+
+  <!-- CTA Room Service -->
+  <div class="cta-room-service">
+    <div class="cta-text">
+      <h3>Room Service disponible</h3>
+      <p>Commandez depuis votre chambre · Livraison en 20–35 minutes</p>
+    </div>
+    <button class="btn-gold">Accéder au menu</button>
+  </div>
+
+</div>
+</body>
+</html>

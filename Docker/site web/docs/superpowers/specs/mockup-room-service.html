@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maquette — Room Service · Maison Saclay</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --charcoal: #1C1C1C;
+  --ivory: #F5F0E8;
+  --gold: #C9A96E;
+  --border: #E8E2D8;
+  --muted: #8A8278;
+  --bg: #FAFAF8;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--charcoal);
+}
+
+/* ── HEADER ── */
+header {
+  background: var(--charcoal);
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 48px;
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+
+.header-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--ivory);
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.cart-icon {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  color: var(--ivory);
+  cursor: pointer;
+  padding: 8px 16px;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.cart-count {
+  background: var(--gold);
+  color: var(--charcoal);
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 400;
+}
+
+/* ── HERO ── */
+.hero {
+  height: 380px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.6);
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(28,28,28,0.85) 0%, transparent 60%);
+}
+
+.hero-content {
+  position: relative;
+  padding: 0 64px 48px;
+  width: 100%;
+}
+
+.hero-label {
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 10px;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  font-weight: 300;
+  color: var(--ivory);
+  line-height: 1.1;
+}
+
+.hero-title em {
+  font-style: italic;
+  color: rgba(245,240,232,0.55);
+}
+
+.hero-meta {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.hero-meta span {
+  font-size: 11px;
+  font-weight: 300;
+  color: rgba(245,240,232,0.55);
+  letter-spacing: 0.08em;
+}
+
+.hero-meta .dot {
+  width: 3px;
+  height: 3px;
+  background: var(--gold);
+  border-radius: 50%;
+}
+
+/* ── ROOM INDICATOR ── */
+.room-bar {
+  background: white;
+  border-bottom: 1px solid var(--border);
+  padding: 14px 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.room-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.room-info .label {
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.room-info .room-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--charcoal);
+}
+
+.room-info .room-name {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--muted);
+}
+
+.delivery-info {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--muted);
+}
+
+.delivery-info strong {
+  color: var(--charcoal);
+  font-weight: 400;
+}
+
+/* ── LAYOUT PRINCIPAL ── */
+.main-layout {
+  display: grid;
+  grid-template-columns: 1fr 360px;
+  gap: 0;
+  max-width: 100%;
+}
+
+/* ── MENU ZONE ── */
+.menu-zone {
+  padding: 48px 64px;
+}
+
+/* Category sticky tabs */
+.category-tabs {
+  display: flex;
+  gap: 0;
+  border: 1px solid var(--border);
+  margin-bottom: 48px;
+  background: white;
+  width: fit-content;
+}
+
+.cat-tab {
+  padding: 12px 24px;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border: none;
+  background: none;
+  cursor: pointer;
+  border-right: 1px solid var(--border);
+  transition: all 0.15s;
+}
+
+.cat-tab:last-child { border-right: none; }
+
+.cat-tab.active {
+  background: var(--charcoal);
+  color: var(--ivory);
+}
+
+/* Category section */
+.cat-section {
+  margin-bottom: 56px;
+}
+
+.cat-header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 28px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cat-header h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: var(--charcoal);
+}
+
+.cat-header .cat-hours {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--muted);
+  letter-spacing: 0.05em;
+}
+
+/* Menu grid — editorial, pas SaaS */
+.menu-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.menu-item {
+  background: white;
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  min-height: 110px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.menu-item:hover { background: #FFFEF9; }
+
+.menu-item.featured {
+  grid-column: span 2;
+  grid-template-columns: 240px 1fr;
+  min-height: 160px;
+}
+
+.menu-item-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.menu-item-body {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.menu-item-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--charcoal);
+  margin-bottom: 4px;
+}
+
+.menu-item-desc {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--muted);
+  line-height: 1.5;
+  flex: 1;
+  margin-bottom: 12px;
+}
+
+.menu-item-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-item-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 300;
+  color: var(--charcoal);
+}
+
+.add-btn {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border);
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--charcoal);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.add-btn:hover {
+  background: var(--charcoal);
+  color: var(--ivory);
+  border-color: var(--charcoal);
+}
+
+.add-btn.added {
+  background: var(--gold);
+  color: var(--charcoal);
+  border-color: var(--gold);
+}
+
+/* ── PANIER FLOTTANT ── */
+.cart-panel {
+  background: white;
+  border-left: 1px solid var(--border);
+  position: sticky;
+  top: 64px;
+  height: calc(100vh - 64px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.cart-header {
+  padding: 28px 28px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.cart-header h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.3rem;
+  font-weight: 300;
+  color: var(--charcoal);
+  margin-bottom: 2px;
+}
+
+.cart-header p {
+  font-size: 11px;
+  font-weight: 300;
+  color: var(--muted);
+}
+
+/* Cart items */
+.cart-items {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px 28px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.cart-item:last-child { border-bottom: none; }
+
+.cart-item-img {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.cart-item-info { flex: 1; }
+
+.cart-item-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--charcoal);
+  margin-bottom: 4px;
+}
+
+.cart-item-price {
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--muted);
+}
+
+.cart-qty {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.qty-btn {
+  width: 22px;
+  height: 22px;
+  border: 1px solid var(--border);
+  background: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  cursor: pointer;
+  color: var(--charcoal);
+}
+
+.qty-num {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--charcoal);
+  min-width: 16px;
+  text-align: center;
+}
+
+/* Cart footer */
+.cart-footer {
+  padding: 20px 28px;
+  border-top: 1px solid var(--border);
+}
+
+.cart-note {
+  width: 100%;
+  border: 1px solid var(--border);
+  padding: 10px 12px;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 300;
+  color: var(--charcoal);
+  resize: none;
+  height: 60px;
+  margin-bottom: 16px;
+  outline: none;
+}
+
+.cart-note::placeholder { color: var(--muted); }
+
+.cart-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 16px;
+}
+
+.cart-total-label {
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.cart-total-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--charcoal);
+}
+
+.btn-order {
+  width: 100%;
+  padding: 16px;
+  background: var(--charcoal);
+  color: var(--ivory);
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.btn-order:hover { background: #2a2a2a; }
+
+.cart-legal {
+  font-size: 10px;
+  font-weight: 300;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 10px;
+  line-height: 1.4;
+}
+
+.badge {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  background: var(--gold);
+  color: var(--charcoal);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 6px 12px;
+  z-index: 999;
+}
+</style>
+</head>
+<body>
+
+<div class="badge">Maquette UX</div>
+
+<!-- ── HEADER ── -->
+<header>
+  <span class="header-logo">Maison Saclay</span>
+  <div class="header-right">
+    <div class="cart-icon">
+      Panier
+      <div class="cart-count">2</div>
+    </div>
+  </div>
+</header>
+
+<!-- ── HERO ── -->
+<div class="hero">
+  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1600&q=85" alt="Room Service">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-label">Room Service</span>
+    <h1 class="hero-title">Votre table,<br><em>dans votre chambre</em></h1>
+    <div class="hero-meta">
+      <span>Disponible 7h – 22h</span>
+      <div class="dot"></div>
+      <span>Livraison 20–35 min</span>
+      <div class="dot"></div>
+      <span>Chambre 204</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── ROOM BAR ── -->
+<div class="room-bar">
+  <div class="room-info">
+    <span class="label">Livraison pour</span>
+    <span class="room-num">Chambre 204</span>
+    <span class="room-name">Suite Panoramique — Marie Dupont</span>
+  </div>
+  <div class="delivery-info">
+    Délai estimé : <strong>25 minutes</strong>
+  </div>
+</div>
+
+<!-- ── LAYOUT ── -->
+<div class="main-layout">
+
+  <!-- ── MENU ── -->
+  <div class="menu-zone">
+
+    <!-- Tabs catégories -->
+    <div class="category-tabs">
+      <button class="cat-tab active">Brunch</button>
+      <button class="cat-tab">Plats</button>
+      <button class="cat-tab">Boissons</button>
+      <button class="cat-tab">Desserts</button>
+    </div>
+
+    <!-- BRUNCH -->
+    <div class="cat-section">
+      <div class="cat-header">
+        <h2>Brunch</h2>
+        <span class="cat-hours">Servi de 7h à 11h</span>
+      </div>
+
+      <div class="menu-grid">
+
+        <!-- Featured item -->
+        <div class="menu-item featured">
+          <img class="menu-item-img" src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=500&q=80" alt="Brunch Signature">
+          <div class="menu-item-body">
+            <div>
+              <p class="menu-item-name">Brunch Signature</p>
+              <p class="menu-item-desc">Viennoiseries du four, œufs Benedict, saumon fumé de Norvège, fruits frais de saison, jus pressé</p>
+            </div>
+            <div class="menu-item-footer">
+              <span class="menu-item-price">38€</span>
+              <button class="add-btn added">✓</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="menu-item">
+          <img class="menu-item-img" src="https://images.unsplash.com/photo-1525351484163-7529414344d8?w=300&q=80" alt="Continental">
+          <div class="menu-item-body">
+            <div>
+              <p class="menu-item-name">Continental</p>
+              <p class="menu-item-desc">Pain grillé, confiture maison, beurre de Normandie</p>
+            </div>
+            <div class="menu-item-footer">
+              <span class="menu-item-price">22€</span>
+              <button class="add-btn">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="menu-item">
+          <img class="menu-item-img" src="https://images.unsplash.com/photo-1484723091739-30990d8d7b02?w=300&q=80" alt="Healthy Bowl">
+          <div class="menu-item-body">
+            <div>
+              <p class="menu-item-name">Healthy Bowl</p>
+              <p class="menu-item-desc">Granola artisanal, yaourt grec, fruits de saison, miel d'acacia</p>
+            </div>
+            <div class="menu-item-footer">
+              <span class="menu-item-price">28€</span>
+              <button class="add-btn">+</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- BOISSONS -->
+    <div class="cat-section">
+      <div class="cat-header">
+        <h2>Boissons</h2>
+        <span class="cat-hours">Disponible toute la journée</span>
+      </div>
+
+      <div class="menu-grid">
+        <div class="menu-item">
+          <img class="menu-item-img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=300&q=80" alt="Café">
+          <div class="menu-item-body">
+            <div>
+              <p class="menu-item-name">Café Arabica</p>
+              <p class="menu-item-desc">Sélection single origin, mouture fraîche</p>
+            </div>
+            <div class="menu-item-footer">
+              <span class="menu-item-price">6€</span>
+              <button class="add-btn added">✓</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-item">
+          <img class="menu-item-img" src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=300&q=80" alt="Jus frais">
+          <div class="menu-item-body">
+            <div>
+              <p class="menu-item-name">Jus frais pressé</p>
+              <p class="menu-item-desc">Orange, pomme ou carotte-gingembre</p>
+            </div>
+            <div class="menu-item-footer">
+              <span class="menu-item-price">10€</span>
+              <button class="add-btn">+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── PANIER ── -->
+  <div class="cart-panel">
+    <div class="cart-header">
+      <h3>Votre commande</h3>
+      <p>Chambre 204 · Suite Panoramique</p>
+    </div>
+
+    <div class="cart-items">
+
+      <div class="cart-item">
+        <img class="cart-item-img" src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?w=150&q=80" alt="">
+        <div class="cart-item-info">
+          <p class="cart-item-name">Brunch Signature</p>
+          <p class="cart-item-price">38€</p>
+          <div class="cart-qty">
+            <button class="qty-btn">−</button>
+            <span class="qty-num">1</span>
+            <button class="qty-btn">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="cart-item">
+        <img class="cart-item-img" src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=150&q=80" alt="">
+        <div class="cart-item-info">
+          <p class="cart-item-name">Café Arabica</p>
+          <p class="cart-item-price">6€ × 2</p>
+          <div class="cart-qty">
+            <button class="qty-btn">−</button>
+            <span class="qty-num">2</span>
+            <button class="qty-btn">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="cart-footer">
+      <textarea class="cart-note" placeholder="Note pour le service (allergies, préférences…)"></textarea>
+
+      <div class="cart-total-row">
+        <span class="cart-total-label">Total</span>
+        <span class="cart-total-price">50€</span>
+      </div>
+
+      <button class="btn-order">Commander · 50€</button>
+      <p class="cart-legal">Ajouté à votre note de chambre<br>Règlement au départ</p>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

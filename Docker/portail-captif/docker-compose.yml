@@ -1,0 +1,47 @@
+services:
+
+  # ============================================
+  # PORTAIL CAPTIF - PHP-FPM
+  # Gere la logique PHP du portail captif
+  # ============================================
+  portail-captif:
+    image: php:8.2-fpm
+    container_name: PortailCaptif_OP1
+    restart: unless-stopped
+    environment:
+      # Connexion a la BDD MySQL du site web (serveur collègue)
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - ./portail:/var/www/html    # Fichiers PHP du portail captif
+    networks:
+      - hotel-network
+
+  # ============================================
+  # NGINX - Serveur web
+  # Sert les pages PHP du portail captif
+  # Redirige les clients WiFi vers la page de login
+  # Ecoute sur le port 80
+  # ============================================
+  nginx:
+    image: nginx:alpine
+    container_name: Nginx_OP1
+    restart: unless-stopped
+    ports:
+      - "8081:80"                    # Port HTTP pour le portail captif
+    volumes:
+      - ./portail:/var/www/html    # Fichiers PHP du portail captif
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf  # Config Nginx
+    depends_on:
+      - portail-captif
+    networks:
+      - hotel-network
+
+# ============================================
+# RESEAUX - Communication entre conteneurs
+# ============================================
+networks:
+  hotel-network:
+    driver: bridge

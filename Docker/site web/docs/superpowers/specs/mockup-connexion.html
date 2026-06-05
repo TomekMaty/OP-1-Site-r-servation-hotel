@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Maquette — Connexion · Maison Saclay</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --charcoal: #1C1C1C;
+    --charcoal-2: #242424;
+    --ivory: #F5F0E8;
+    --gold: #C9A96E;
+    --gold-light: #D4B483;
+    --border: rgba(255,255,255,0.1);
+    --border-light: #E8E2D8;
+  }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--charcoal);
+    color: var(--ivory);
+    min-height: 100vh;
+    display: flex;
+  }
+
+  /* ── PHOTO GAUCHE ────────────────────────────────────── */
+  .photo-side {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .photo-side img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.75);
+  }
+
+  .photo-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(28,28,28,0.4) 0%, rgba(28,28,28,0.1) 100%);
+  }
+
+  .photo-caption {
+    position: absolute;
+    bottom: 48px;
+    left: 48px;
+    right: 48px;
+  }
+
+  .photo-caption .label {
+    font-family: 'Inter', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .photo-caption h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+    color: var(--ivory);
+  }
+
+  .photo-caption h2 em {
+    font-style: italic;
+    color: rgba(245,240,232,0.6);
+  }
+
+  /* ── FORM SIDE ───────────────────────────────────────── */
+  .form-side {
+    width: 480px;
+    flex-shrink: 0;
+    background: var(--charcoal);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 64px 56px;
+    border-left: 1px solid var(--border);
+  }
+
+  /* Logo */
+  .logo {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 56px;
+  }
+
+  .logo-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: var(--ivory);
+    letter-spacing: 0.02em;
+  }
+
+  .logo-sub {
+    font-size: 9px;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 2px;
+  }
+
+  /* Tabs */
+  .tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 40px;
+  }
+
+  .tab {
+    flex: 1;
+    padding: 0 0 14px 0;
+    font-size: 11px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.35);
+    border: none;
+    background: none;
+    cursor: pointer;
+    position: relative;
+    text-align: center;
+  }
+
+  .tab.active {
+    color: var(--ivory);
+  }
+
+  .tab.active::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  /* Form */
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+    margin-bottom: 8px;
+  }
+
+  .form-input {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    color: var(--ivory);
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+    font-weight: 300;
+    padding: 14px 16px;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .form-input:focus {
+    border-color: var(--gold);
+    background: rgba(201,169,110,0.04);
+  }
+
+  .form-input::placeholder {
+    color: rgba(245,240,232,0.2);
+  }
+
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  /* CTA */
+  .btn-primary {
+    width: 100%;
+    padding: 16px;
+    background: var(--gold);
+    color: var(--charcoal);
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: background 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: var(--gold-light);
+  }
+
+  /* Séparateur */
+  .separator {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 28px 0;
+  }
+
+  .separator::before, .separator::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .separator span {
+    font-size: 10px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.25);
+    letter-spacing: 0.1em;
+  }
+
+  /* Lien */
+  .form-footer {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 12px;
+    font-weight: 300;
+    color: rgba(245,240,232,0.35);
+  }
+
+  .form-footer a {
+    color: var(--gold);
+    text-decoration: none;
+  }
+
+  /* ── BADGE SOUTENANCE ────────────────────────────────── */
+  .badge {
+    position: fixed;
+    top: 16px;
+    right: 16px;
+    background: var(--gold);
+    color: var(--charcoal);
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    z-index: 999;
+  }
+
+  /* ── TAB REGISTER (cachée par défaut, simulée) ───────── */
+  .register-form { display: none; }
+  .tab[data-tab="register"].active ~ .register-form { display: block; }
+
+  /* ── RESPONSIVE ──────────────────────────────────────── */
+  @media (max-width: 768px) {
+    body { flex-direction: column; }
+    .photo-side { height: 240px; flex: none; }
+    .form-side { width: 100%; padding: 40px 24px; }
+    .form-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="badge">Maquette UX</div>
+
+<!-- ── PHOTO GAUCHE ─────────────────────────────────────── -->
+<div class="photo-side">
+  <img
+    src="https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1400&q=85"
+    alt="Suite Maison Saclay"
+  >
+  <div class="photo-overlay"></div>
+  <div class="photo-caption">
+    <span class="label">Maison Saclay</span>
+    <h2>
+      L'art de recevoir<br>
+      <em>depuis 1924</em>
+    </h2>
+  </div>
+</div>
+
+<!-- ── FORMULAIRE DROITE ─────────────────────────────────── -->
+<div class="form-side">
+
+  <!-- Logo -->
+  <div class="logo">
+    <span class="logo-name">Maison Saclay</span>
+    <span class="logo-sub">Espace client</span>
+  </div>
+
+  <!-- Tabs -->
+  <div class="tabs">
+    <button class="tab active">Connexion</button>
+    <button class="tab">Créer un compte</button>
+  </div>
+
+  <!-- === CONNEXION === -->
+  <form>
+    <div class="form-group">
+      <label class="form-label">Adresse email</label>
+      <input class="form-input" type="email" placeholder="votre@email.fr">
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Mot de passe</label>
+      <input class="form-input" type="password" placeholder="••••••••">
+    </div>
+
+    <button type="button" class="btn-primary">
+      Se connecter
+    </button>
+
+    <div class="separator">
+      <span>ou</span>
+    </div>
+
+    <p class="form-footer">
+      Première visite ? <a href="#">Créer votre espace client</a>
+    </p>
+
+    <p class="form-footer" style="margin-top: 12px;">
+      <a href="#">Mot de passe oublié ?</a>
+    </p>
+  </form>
+
+  <!-- === INSCRIPTION (simulée en commentaire — visible en variant) ===
+  <form>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Prénom</label>
+        <input class="form-input" type="text" placeholder="Marie">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Nom</label>
+        <input class="form-input" type="text" placeholder="Dupont">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Email</label>
+      <input class="form-input" type="email" placeholder="votre@email.fr">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Mot de passe</label>
+      <input class="form-input" type="password" placeholder="Minimum 8 caractères">
+    </div>
+    <button type="button" class="btn-primary">Créer mon compte</button>
+  </form>
+  -->
+
+</div>
+
+</body>
+</html>
