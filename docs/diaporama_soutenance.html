@@ -1,0 +1,767 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Maison Saclay — Diaporama Soutenance</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #f0f0f0;
+    color: #1a1a2e;
+  }
+
+  .slide {
+    width: 297mm;
+    min-height: 210mm;
+    background: white;
+    margin: 20px auto;
+    padding: 14mm 18mm 12mm;
+    page-break-after: always;
+    page-break-inside: avoid;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.10);
+  }
+
+  /* Bande couleur en haut */
+  .slide::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, #4f46e5, #7c3aed);
+  }
+
+  /* Numéro de slide en haut à droite */
+  .slide-num {
+    position: absolute;
+    top: 12px; right: 18mm;
+    font-size: 9pt;
+    color: #9ca3af;
+    font-weight: 500;
+  }
+
+  .slide-header {
+    margin-bottom: 10mm;
+  }
+
+  .slide-tag {
+    display: inline-block;
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: #4f46e5;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  h1 {
+    font-size: 26pt;
+    font-weight: 700;
+    color: #1a1a2e;
+    line-height: 1.15;
+  }
+
+  h1 span { color: #4f46e5; }
+
+  h2 {
+    font-size: 22pt;
+    font-weight: 700;
+    color: #1a1a2e;
+    line-height: 1.2;
+  }
+
+  h2 span { color: #4f46e5; }
+
+  .subtitle {
+    font-size: 12pt;
+    color: #6b7280;
+    margin-top: 4px;
+  }
+
+  .section-label {
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin: 8px 0 5px;
+  }
+
+  ul.bullets {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 8mm;
+  }
+
+  ul.bullets li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: #1f2937;
+  }
+
+  ul.bullets li::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4f46e5;
+    flex-shrink: 0;
+    margin-top: 5px;
+  }
+
+  ul.bullets li strong { font-weight: 600; }
+
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .box {
+    background: #f8faff;
+    border: 1px solid #e0e7ff;
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  .box .box-label {
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: #4f46e5;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    margin-bottom: 4px;
+  }
+
+  .box .box-val {
+    font-size: 9.5pt;
+    color: #374151;
+    line-height: 1.5;
+  }
+
+  .oral {
+    background: #f5f3ff;
+    border-left: 4px solid #4f46e5;
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    margin-top: auto;
+  }
+
+  .oral .oral-label {
+    font-size: 7.5pt;
+    font-weight: 600;
+    color: #4f46e5;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .oral .oral-text {
+    font-size: 9.5pt;
+    color: #4b5563;
+    line-height: 1.55;
+    font-style: italic;
+  }
+
+  .stat-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .stat {
+    flex: 1;
+    background: #f8faff;
+    border: 1px solid #e0e7ff;
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  .stat .stat-n {
+    font-size: 22pt;
+    font-weight: 700;
+    color: #4f46e5;
+    line-height: 1;
+  }
+
+  .stat .stat-l {
+    font-size: 8pt;
+    color: #9ca3af;
+    margin-top: 3px;
+  }
+
+  .flow {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    margin-bottom: 8px;
+    background: #f8faff;
+    border: 1px solid #e0e7ff;
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+
+  .flow-step {
+    font-size: 8.5pt;
+    color: #1f2937;
+    background: white;
+    border: 1px solid #c7d2fe;
+    border-radius: 6px;
+    padding: 4px 9px;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+
+  .flow-arrow {
+    font-size: 12pt;
+    color: #4f46e5;
+    font-weight: 600;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 8mm;
+  }
+
+  .tag {
+    font-size: 8pt;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid;
+  }
+
+  .tag.purple { background: #ede9fe; color: #4338ca; border-color: #c4b5fd; }
+  .tag.teal   { background: #d1fae5; color: #065f46; border-color: #6ee7b7; }
+  .tag.gray   { background: #f3f4f6; color: #374151; border-color: #d1d5db; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 8px 0;
+  }
+
+  .demo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #ecfdf5;
+    color: #065f46;
+    border: 1px solid #6ee7b7;
+    font-size: 8pt;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-top: 6px;
+  }
+
+  /* Slide titre spéciale */
+  .slide-cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 210mm;
+  }
+
+  .slide-cover .logo-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #4f46e5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 16px;
+    font-size: 28pt;
+    font-weight: 700;
+    color: white;
+  }
+
+  .slide-cover h1 {
+    font-size: 34pt;
+    margin-bottom: 6px;
+  }
+
+  .slide-cover .cover-sub {
+    font-size: 13pt;
+    color: #6b7280;
+    margin-bottom: 24px;
+  }
+
+  .cover-info {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .cover-info-item {
+    text-align: center;
+  }
+
+  .cover-info-item .ci-val {
+    font-size: 11pt;
+    font-weight: 600;
+    color: #1f2937;
+  }
+
+  .cover-info-item .ci-label {
+    font-size: 8.5pt;
+    color: #9ca3af;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 8mm;
+    left: 18mm;
+    right: 18mm;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 5px;
+  }
+
+  .footer-brand {
+    font-size: 8pt;
+    color: #9ca3af;
+    font-weight: 500;
+  }
+
+  .footer-page {
+    font-size: 8pt;
+    color: #9ca3af;
+  }
+
+  @media print {
+    body { background: white; }
+    .slide {
+      margin: 0;
+      box-shadow: none;
+      width: 100%;
+      min-height: 100vh;
+    }
+    .print-btn { display: none; }
+  }
+
+  /* Bouton d'impression */
+  .print-btn {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #4f46e5;
+    color: white;
+    border: none;
+    padding: 14px 24px;
+    border-radius: 30px;
+    font-size: 13pt;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(79,70,229,0.4);
+    font-family: 'Inter', sans-serif;
+    z-index: 999;
+  }
+
+  .print-btn:hover { background: #4338ca; }
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">🖨 Imprimer / Enregistrer en PDF</button>
+
+<!-- ══ SLIDE 1 — TITRE ══════════════════════════════════════════════ -->
+<div class="slide slide-cover">
+  <div class="slide-num">1 / 10</div>
+  <div class="logo-circle">MS</div>
+  <h1>Maison Saclay<br><span>Hôtel 5 étoiles</span></h1>
+  <div class="cover-sub">Projet OP-1 — Licence Pro MRT — 2025–2026</div>
+  <div class="tags" style="justify-content: center;">
+    <span class="tag purple">React + TypeScript</span>
+    <span class="tag gray">PHP 8.2 API REST</span>
+    <span class="tag gray">MySQL + Docker</span>
+    <span class="tag teal">FreeRADIUS + EAP330</span>
+    <span class="tag gray">Asterisk 16</span>
+  </div>
+  <div class="cover-info">
+    <div class="cover-info-item"><div class="ci-val">8</div><div class="ci-label">Services Docker</div></div>
+    <div class="cover-info-item"><div class="ci-val">10</div><div class="ci-label">Tables MySQL</div></div>
+    <div class="cover-info-item"><div class="ci-val">9</div><div class="ci-label">Chambres</div></div>
+    <div class="cover-info-item"><div class="ci-val">RADIUS</div><div class="ci-label">Auth WiFi</div></div>
+  </div>
+  <div class="footer">
+    <span class="footer-brand">Maison Saclay — Projet OP-1</span>
+    <span class="footer-page">Slide 1 / 10</span>
+  </div>
+</div>
+
+<!-- ══ SLIDE 2 — CONTEXTE ═══════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-num">2 / 10</div>
+  <div class="slide-header">
+    <div class="slide-tag">Contexte &amp; objectif</div>
+    <h2>Pourquoi ce <span>projet</span> ?</h2>
+  </div>
+  <ul class="bullets">
+    <li><strong>Contexte :</strong> un hôtel a besoin d'outils numériques pour gérer clients, chambres, commandes et réseau WiFi</li>
+    <li><strong>Objectif :</strong> concevoir et déployer une solution complète, fonctionnelle et démontrable sur le réseau de l'école</li>
+    <li><strong>Contrainte :</strong> tout tourne sur un seul PC via Docker — aucune installation manuelle de PHP, MySQL ou FreeRADIUS</li>
+    <li><strong>Sécurité :</strong> le WiFi n'est accessible qu'après authentification par numéro de chambre (protocole RADIUS)</li>
+  </ul>
+  <div class="section-label">Besoins couverts</div>
+  <div class="grid-2">
+    <div class="box">
+      <div class="box-label">Côté client</div>
+      <div class="box-val">Réserver en ligne · Commander un repas · Accéder au WiFi avec son numéro de chambre · Voir son espace personnel</div>
+    </div>
+    <div class="box">
+      <div class="box-label">Côté admin</div>
+      <div class="box-val">Voir les réservations · Gérer les commandes · Surveiller le WiFi · Recevoir des alertes Telegram en temps réel</div>
+    </div>
+  </div>
+  <div class="oral">
+    <div class="oral-label">À dire à l'oral</div>
+    <div class="oral-text">"L'objectif était de construire un système réaliste, pas juste une maquette. Chaque fonctionnalité fonctionne vraiment : la réservation crée une entrée en base, le WiFi authentifie via RADIUS, les notifications arrivent sur Telegram."</div>
+  </div>
+  <div class="footer">
+    <span class="footer-brand">Maison Saclay — Projet OP-1</span>
+    <span class="footer-page">Slide 2 / 10</span>
+  </div>
+</div>
+
+<!-- ══ SLIDE 3 — ARCHITECTURE DOCKER ════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-num">3 / 10</div>
+  <div class="slide-header">
+    <div class="slide-tag">Infrastructure</div>
+    <h2>Architecture <span>Docker</span></h2>
+    <div class="subtitle">8 services orchestrés — 1 seule commande : <strong>docker compose up -d</strong></div>
+  </div>
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="box"><div class="box-label">nginx</div><div class="box-val">Sert le frontend React · Redirige /api/* vers PHP-FPM</div></div>
+    <div class="box"><div class="box-label">php 8.2-fpm</div><div class="box-val">API REST complète — toute la logique métier</div></div>
+    <div class="box"><div class="box-label">mysql 8.0</div><div class="box-val">Base de données · Volume persistant (données survivent aux redémarrages)</div></div>
+    <div class="box"><div class="box-label">phpmyadmin</div><div class="box-val">Interface web DB · Accessible uniquement depuis localhost (sécurisé)</div></div>
+    <div class="box"><div class="box-label">freeradius</div><div class="box-val">Authentification WiFi RADIUS · Chambres 101–603 configurées</div></div>
+    <div class="box"><div class="box-label">asterisk 16</div><div class="box-val">Téléphonie IP · 10 extensions SIP (1001–1009 + réception 1099)</div></div>
+    <div class="box"><div class="box-label">worker</div><div class="box-val">Worker Telegram · Répond aux clics sur les boutons de notification</div></div>
+    <div class="box"><div class="box-label">réseau hotel-net</div><div class="box-val">Réseau Docker interne · Les services communiquent par nom de container</div></div>
+  </div>
+  <div class="oral">
+    <div class="oral-label">À dire à l'oral</div>
+    <div class="oral-text">"Docker nous permet de déployer l'ensemble du projet en une seule commande. Chaque service est isolé dans son container. Les données MySQL sont dans un volume persistant — elles survivent aux redémarrages et aux mises à jour."</div>
+  </div>
+  <div class="footer">
+    <span class="footer-brand">Maison Saclay — Projet OP-1</span>
+    <span class="footer-page">Slide 3 / 10</span>
+  </div>
+</div>
+
+<!-- ══ SLIDE 4 — SITE PUBLIC ════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-num">4 / 10</div>
+  <div class="slide-header">
+    <div class="slide-tag">Frontend</div>
+    <h2>Site public <span>hôtel</span></h2>
+    <div class="subtitle">SPA React — Single Page Application</div>
+  </div>
+  <ul class="bullets">
+    <li><strong>Page d'accueil</strong> — présentation de l'hôtel, navigation vers les sections</li>
+    <li><strong>Catalogue des chambres</strong> — 3 types : Deluxe (38 m²), Suite (72 m²), Penthouse (210 m²)</li>
+    <li><strong>Formulaire de réservation</strong> — choix des dates, nombre de voyageurs, calcul automatique du prix</li>
+    <li><strong>Page de confirmation</strong> — numéro de chambre physique attribuée + extension téléphonique</li>
+    <li><strong>Room service</strong> — commander un repas depuis sa chambre, livraison suivi en temps réel</li>
+  </ul>
+  <div class="section-label">Stack technique</div>
+  <div class="tags">
+    <span class="tag purple">React 18</span>
+    <span class="tag purple">TypeScript</span>
+    <span class="tag gray">Tailwind CSS</span>
+    <span class="tag gray">React Router</span>
+    <span class="tag teal">Vite (build)</span>
+    <span class="tag gray">Framer Motion</span>
+  </div>
+  <div class="box" style="margin-bottom: 8px;">
+    <div class="box-label">Communication frontend → backend</div>
+    <div class="box-val">Centralisée dans <strong>api.ts</strong> — ajoute automatiquement le token JWT dans chaque requête HTTP. Le backend répond toujours en JSON avec <em>success: true/false</em>.</div>
+  </div>
+  <div class="oral">
+    <div class="oral-label">À dire à l'oral</div>
+    <div class="oral-text">"Le frontend est une SPA React compilée avec Vite. Il communique avec le backend PHP uniquement via des appels API JSON. Nginx sert les fichiers statiques du build et redirige les requêtes /api vers PHP."</div>
+  </div>
+  <div class="footer">
+    <span class="footer-brand">Maison Saclay — Projet OP-1</span>
+    <span class="footer-page">Slide 4 / 10</span>
+  </div>
+</div>
+
+<!-- ══ SLIDE 5 — RÉSERVATION ET BASE DE DONNÉES ═════════════════════ -->
+<div class="slide">
+  <div class="slide-num">5 / 10</div>
+  <div class="slide-header">
+    <div class="slide-tag">Backend + MySQL</div>
+    <h2>Réservation et <span>base de données</span></h2>
+  </div>
+  <div class="section-label">Flow complet d'une réservation</div>
+  <div class="flow">
+    <div class="flow-step">1. Client choisit les dates</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">2. POST /api/bookings + JWT</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">3. Vérif. disponibilité SQL</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">4. Attribution chambre physique</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">5. INSERT MySQL</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">6. Notification Telegram</div>
+  </div>
+  <ul class="bullets">
+    <li><strong>Attribution automatique :</strong> requête SQL avec détection de chevauchement de dates — aucune double-réservation possible</li>
+    <li><strong>Prix calculé :</strong> nombre de nuits × tarif du type de chambre</li>
+    <li><strong>Notification Telegram :</strong> l'admin reçoit un message avec boutons Confirmer / Annuler interactifs</li>
+    <li><strong>Chambre physique :</strong> distinction entre le type (catalogue) et la chambre réelle attribuée (101, 201, 601…)</li>
+  </ul>
+  <div class="stat-row">
+    <div class="stat"><div class="stat-n">3</div><div class="stat-l">Types de chambre</div></div>
+    <div class="stat"><div class="stat-n">9</div><div class="stat-l">Chambres physiques</div></div>
+    <div class="stat"><div class="stat-n">16</div><div class="stat-l">Réservations</div></div>
+    <div class="stat"><div class="stat-n">11</div><div class="stat-l">Commandes room service</div></div>
+    <div class="stat"><div class="stat-n">10</div><div class="stat-l">Tables MySQL</div></div>
+  </div>
+  <div class="oral">
+    <div class="oral-label">À dire à l'oral</div>
+    <div class="oral-text">"La réservation déclenche une série d'opérations : vérification SQL avec chevauchement de dates, attribution automatique de chambre physique, calcul du prix et notification Telegram avec boutons interactifs pour l'admin."</div>
+  </div>
+  <div class="footer">
+    <span class="footer-brand">Maison Saclay — Projet OP-1</span>
+    <span class="footer-page">Slide 5 / 10</span>
+  </div>
+</div>
+
+<!-- ══ SLIDE 6 — DASHBOARD ADMIN ════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-num">6 / 10</div>
+  <div class="slide-header">
+    <div class="slide-tag">Admin React</div>
+    <h2>Dashboard <span>administrateur</span></h2>
+    <div class="subtitle">Route /admin — protégée par mot de passe + token JWT</div>
+  </div>
+  <div class="section-label">5 onglets disponibles</div>
+  <div class="grid-3" style="margin-bottom: 8px;">
+    <div class="box"><div class="box-label">Réservations</div><div class="box-val">Liste complète · Numéro chambre attribué · Changer le statut</div></div>
+    <div class="box"><div class="box-label">Commandes</div><div class="box-val">Room service · Articles · Statuts : en attente / en préparation / livré</div></div>
+    <div class="box"><div class="box-label">Chambres</div><div class="box-val">Vue temps réel : libre, occupée, arrivée aujourd'hui, départ…</div></div>
+    <div class="box"><div class="box-label">WiFi</div><div class="box-val">Sessions RADIUS réelles + activité réseau de démonstration</div></div>
+    <div class="box"><div class="box-label">Statistiques</div><div class="box-val">Revenus, taux d'occupation, activité du jour</div></div>
+    <div class="box"><div class="box-label">Chargement</div><div class="box-val">Toutes les données en parallèle via Promise.all() au démarrage</div></div>
+  </div>
+  <div class="grid-2">
+    <div class="box"><div class="box-label">Authentification admin</div><div class="box-val">Mot de passe unique (.env) → JWT signé HS256 · Valable 7 jours · Stocké en sessionStorage</div></div>
+    <div class="box"><div class="box-label">Protection API</div><div class="box-val">AdminMiddleware vérifie le JWT à chaque requête → HTTP 401 si absent ou invalide</div></div>
+  </div>
+  <div class="oral">
+    <div class="oral-label">À dire à l'oral</div>
+    <div class="oral-text">"L'admin est une SPA React sécurisée par JWT. Toutes les données sont chargées en parallèle au démarrage. Chaque route API admin retourne HTTP 401 si le token est absent ou expiré — il n'y a aucun accès sans authentification."</div>
+  </div>
+  <div class="footer">
+    <span class="footer-brand">Maison Saclay — Projet OP-1</span>
+    <span class="footer-page">Slide 6 / 10</span>
+  </div>
+</div>
+
+<!-- ══ SLIDE 7 — PORTAIL CAPTIF ═════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-num">7 / 10</div>
+  <div class="slide-header">
+    <div class="slide-tag">WiFi — TP-Link EAP330</div>
+    <h2>Portail captif <span>WiFi</span></h2>
+    <div class="subtitle">Authentification des clients par numéro de chambre</div>
+  </div>
+  <div class="section-label">Flux d'authentification complet</div>
+  <div class="flow">
+    <div class="flow-step">Téléphone → OP1_Wifi</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">Portail EAP330 s'affiche</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">Login : 201 / 201</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">RADIUS UDP :18120</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">FreeRADIUS Docker</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">Access-Accept → Internet OK</div>
+  </div>
+  <ul class="bullets">
+    <li><strong>Identifiant = Mot de passe = Numéro de chambre</strong> (101 à 603)</li>
+    <li>Borne EAP330 en mode "Local Web Portal" + RADIUS externe</li>
+    <li>Session autorisée 1 heure — puis re-authentification requise</li>
+    <li>FreeRADIUS répond <em>Access-Accept</em> (OK) ou <em>Access-Reject</em> (refusé)</li>
+    <li>RADIUS = protocole standard en hôtellerie, entreprises et universités</li>
+  </ul>
+  <div class="demo-badge">📱 Démo live : connexion WiFi depuis un téléphone — chambre 201</div>
+  <div class="oral">
+    <div class="oral-label">À dire à l'oral</div>
+    <div class="oral-text">"Le portail captif utilise le protocole RADIUS, standard dans les réseaux hôteliers. La borne TP-Link délègue l'authentification à FreeRADIUS dans Docker. Le client entre son numéro de chambre et accède à Internet."</div>
+  </div>
+  <div class="footer">
+    <span class="footer-brand">Maison Saclay — Projet OP-1</span>
+    <span class="footer-page">Slide 7 / 10</span>
+  </div>
+</div>
+
+<!-- ══ SLIDE 8 — FREERADIUS + ADMIN WIFI ════════════════════════════ -->
+<div class="slide">
+  <div class="slide-num">8 / 10</div>
+  <div class="slide-header">
+    <div class="slide-tag">FreeRADIUS + Remontée admin</div>
+    <h2>Sessions WiFi dans <span>l'admin</span></h2>
+  </div>
+  <ul class="bullets">
+    <li><strong>FreeRADIUS</strong> dans Docker — 10 chambres (101–603) configurées, secret partagé avec la borne</li>
+    <li><strong>Relay UDP PowerShell</strong> — contourne la limitation Docker Desktop Windows : écoute sur :18120, retransmet vers FreeRADIUS :1812</li>
+    <li><strong>Script sync_radius_sessions.sh</strong> — parse les logs FreeRADIUS, insère/met à jour dans MySQL (idempotent : sans doublons)</li>
+    <li><strong>Onglet WiFi de l'admin</strong> — appareils connectés, chambres, adresses MAC, Access-Accept/Reject</li>
+    <li><strong>Activité réseau</strong> — section de démonstration honnêtement labelisée (domaines DNS consultés)</li>
+  </ul>
+  <div class="grid-2">
+    <div class="box">
+      <div class="box-label">Données WiFi en base (réelles)</div>
+      <div class="box-val">4 sessions · 3 Access-Accept · 1 Reject · Adresses MAC réelles d'appareils testés</div>
+    </div>
+    <div class="box">
+      <div class="box-label">Activité réseau (démo)</div>
+      <div class="box-val">10 lignes DNS · Chambres 101 et 201 · Clairement marquées "démonstration" dans l'interface</div>
+    </div>
+  </div>
+  <div class="demo-badge">💻 Démo : bash sync_radius_sessions.sh → admin WiFi mis à jour</div>
+  <div class="oral">
+    <div class="oral-label">À dire à l'oral</div>
+    <div class="oral-text">"Un script bash lit les logs FreeRADIUS et les transforme en données SQL. L'admin voit en temps réel quels appareils sont connectés, depuis quelle chambre et avec quel statut. Le script peut être relancé autant de fois qu'on veut sans créer de doublons."</div>
+  </div>
+  <div class="footer">
+    <span class="footer-brand">Maison Saclay — Projet OP-1</span>
+    <span class="footer-page">Slide 8 / 10</span>
+  </div>
+</div>
+
+<!-- ══ SLIDE 9 — SÉCURITÉ + DIFFICULTÉS ════════════════════════════ -->
+<div class="slide">
+  <div class="slide-num">9 / 10</div>
+  <div class="slide-header">
+    <div class="slide-tag">Sécurité &amp; problèmes résolus</div>
+    <h2>Difficultés et <span>solutions</span></h2>
+  </div>
+  <div class="section-label">Mesures de sécurité appliquées</div>
+  <div class="grid-2" style="margin-bottom: 6px;">
+    <div class="box"><div class="box-label">JWT HS256</div><div class="box-val">Tokens signés et vérifiés à chaque requête — impossible à forger sans le secret</div></div>
+    <div class="box"><div class="box-label">Mots de passe bcrypt</div><div class="box-val">Jamais stockés en clair — hash bcrypt irréversible en base MySQL</div></div>
+    <div class="box"><div class="box-label">Requêtes préparées PDO</div><div class="box-val">Paramètres bindés — protection totale contre les injections SQL</div></div>
+    <div class="box"><div class="box-label">Ports restreints</div><div class="box-val">phpMyAdmin + MySQL limités à 127.0.0.1 — inaccessibles depuis le réseau WiFi</div></div>
+  </div>
+  <div class="divider"></div>
+  <div class="section-label">Problèmes rencontrés et solutions</div>
+  <div class="grid-2">
+    <div class="box" style="border-left: 3px solid #ef4444;">
+      <div class="box-label" style="color: #dc2626;">Problème 1 — Docker + UDP</div>
+      <div class="box-val">Docker Desktop Windows ne peut pas recevoir de paquets UDP depuis le réseau local (NAT Docker)</div>
+    </div>
+    <div class="box" style="border-left: 3px solid #10b981;">
+      <div class="box-label" style="color: #065f46;">Solution</div>
+      <div class="box-val">Relay UDP PowerShell : écoute sur 192.168.30.104:18120 et retransmet vers FreeRADIUS sur 127.0.0.1:1812</div>
+    </div>
+    <div class="box" style="border-left: 3px solid #ef4444;">
+      <div class="box-label" style="color: #dc2626;">Problème 2 — Double réservation</div>
+      <div class="box-val">Deux clients pouvaient potentiellement réserver la même chambre aux mêmes dates</div>
+    </div>
+    <div class="box" style="border-left: 3px solid #10b981;">
+      <div class="box-label" style="color: #065f46;">Solution</div>
+      <div class="box-val">Requête SQL avec condition de chevauchement (check_in &lt; sortie AND check_out &gt; arrivée) + attribution automatique</div>
+    </div>
+  </div>
+  <div class="oral">
+    <div class="oral-label">À dire à l'oral</div>
+    <div class="oral-text">"La principale difficulté était Docker + RADIUS sur Windows. On a résolu ça avec un relay UDP maison en PowerShell. C'est une solution non standard, mais stable et documentée."</div>
+  </div>
+  <div class="footer">
+    <span class="footer-brand">Maison Saclay — Projet OP-1</span>
+    <span class="footer-page">Slide 9 / 10</span>
+  </div>
+</div>
+
+<!-- ══ SLIDE 10 — CONCLUSION ═════════════════════════════════════════ -->
+<div class="slide">
+  <div class="slide-num">10 / 10</div>
+  <div class="slide-header">
+    <div class="slide-tag">Bilan</div>
+    <h2>Conclusion et <span>améliorations</span></h2>
+  </div>
+  <div class="section-label">Ce qui fonctionne — démontrable en live</div>
+  <ul class="bullets">
+    <li>Réservation multi-nuits de bout en bout avec attribution automatique de chambre physique</li>
+    <li>Room service : commande → Telegram → suivi statut dans l'admin</li>
+    <li>Portail captif WiFi RADIUS — testé avec de vrais appareils sur le réseau</li>
+    <li>Dashboard admin complet : réservations, commandes, chambres, WiFi, statistiques</li>
+    <li>Infrastructure Docker stable — 8 services, IP statique, relay UDP persistant</li>
+  </ul>
+  <div class="divider"></div>
+  <div class="section-label">Améliorations possibles</div>
+  <div class="grid-4">
+    <div class="box">
+      <div class="box-label">HTTPS</div>
+      <div class="box-val">Certificat SSL Let's Encrypt pour chiffrer tous les échanges</div>
+    </div>
+    <div class="box">
+      <div class="box-label">DNS réel</div>
+      <div class="box-val">Pi-hole pour remplacer la démo par une vraie activité réseau</div>
+    </div>
+    <div class="box">
+      <div class="box-label">Téléphonie</div>
+      <div class="box-val">Connecter des postes SIP physiques aux extensions Asterisk</div>
+    </div>
+    <div class="box">
+      <div class="box-label">Monitoring</div>
+      <div class="box-val">Alertes automatiques si un container Docker tombe</div>
+    </div>
+  </div>
+  <div class="oral" style="margin-top: 10px;">
+    <div class="oral-label">À dire à l'oral</div>
+    <div class="oral-text">"Le projet est fonctionnel et démontrable dans son ensemble. Toutes les fonctionnalités principales marchent en conditions réelles. Avec plus de temps, on ajouterait HTTPS, un vrai DNS local pour l'activité réseau et des postes téléphoniques physiques."</div>
+  </div>
+  <div class="footer">
+    <span class="footer-brand">Maison Saclay — Projet OP-1</span>
+    <span class="footer-page">Slide 10 / 10</span>
+  </div>
+</div>
+
+</body>
+</html>

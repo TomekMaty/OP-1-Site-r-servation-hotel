@@ -1,0 +1,18 @@
+;
+; Message Information file
+;
+[message]
+origmailbox=1099
+context=hotel
+macrocontext=
+exten=1099
+rdnis=unknown
+priority=2
+callerchan=SIP/1003-00000027
+callerid="Chambre 1003" <1003>
+origdate=Tue Jun 30 11:39:06 AM UTC 2026
+origtime=1782819546
+category=
+msg_id=1782819546-0000000c
+flag=
+duration=14

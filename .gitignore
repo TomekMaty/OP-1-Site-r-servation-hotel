@@ -1,28 +1,33 @@
-# Dossiers de logs générés par Asterisk au runtime (trop volumineux et inutiles à versionner)
-Docker/*/config/logs/
+# Secrets
+.env
+*.env.local
 
-# Dossier de spool Asterisk (files d'attente d'appels sortants générées au runtime)
-Docker/*/config/spool/
+# Dumps DB (donnees sensibles)
+backup_mysql*.sql
+*.sql.bak
 
-# Dossier des sons Asterisk (fichiers audio binaires, trop lourds pour Git)
-Docker/*/config/sounds/
+# Dependances / build
+node_modules/
+dist/
+dist-ssr/
+*.local
 
-# Fichiers de logs génériques
+# Logs
+logs/
 *.log
-queue_log
-Master.csv
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
-# Fichiers de variables d'environnement contenant les clés secrètes (JWT, Telegram, etc.)
-# Ne jamais commiter ces fichiers — utiliser .env.example comme modèle
-Docker/site web/.env
-Docker/site web/**/.env
-Docker/portail-captif/.env
-
-# Dépendances npm — se réinstallent avec "npm install", inutile de les versionner (300-500 Mo)
-Docker/site web/maison-saclay/node_modules/
-
-# Build de production — généré automatiquement avec "npm run build"
-Docker/site web/maison-saclay/dist/
-
-# Fichiers de sauvegarde automatique
-*.bkp
+# Editeurs / OS
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

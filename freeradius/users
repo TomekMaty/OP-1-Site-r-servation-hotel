@@ -1,0 +1,42 @@
+# ============================================================
+# users — FreeRADIUS — Maison Saclay
+# Chaque chambre = un utilisateur RADIUS
+# Username   : numéro de chambre
+# Password   : numéro de chambre (hotspot open — pas WPA Enterprise)
+#
+# En production, le mot de passe serait un code remis à l'arrivée.
+# ============================================================
+
+# ---- Chambres 1er étage ----
+"101"   Cleartext-Password := "101"
+        Reply-Message := "Bienvenue - Chambre 101 - Poste 1001 - Maison Saclay"
+
+"102"   Cleartext-Password := "102"
+        Reply-Message := "Bienvenue - Chambre 102 - Poste 1002 - Maison Saclay"
+
+"103"   Cleartext-Password := "103"
+        Reply-Message := "Bienvenue - Chambre 103 - Poste 1003 - Maison Saclay"
+
+# ---- Chambres 2ème étage ----
+"201"   Cleartext-Password := "201"
+        Reply-Message := "Bienvenue - Chambre 201 - Poste 2001 - Maison Saclay"
+
+"202"   Cleartext-Password := "202"
+        Reply-Message := "Bienvenue - Chambre 202 - Poste 2002 - Maison Saclay"
+
+"203"   Cleartext-Password := "203"
+        Reply-Message := "Bienvenue - Chambre 203 - Poste 2003 - Maison Saclay"
+
+# ---- Chambres 6ème étage (Penthouse) ----
+"601"   Cleartext-Password := "601"
+        Reply-Message := "Bienvenue - Chambre 601 - Poste 6001 - Maison Saclay"
+
+"602"   Cleartext-Password := "602"
+        Reply-Message := "Bienvenue - Chambre 602 - Poste 6002 - Maison Saclay"
+
+"603"   Cleartext-Password := "603"
+        Reply-Message := "Bienvenue - Chambre 603 - Poste 6003 - Maison Saclay"
+
+# ---- Compte test (pour tests réseau) ----
+"test"  Cleartext-Password := "hotel2026"
+        Reply-Message := "Compte test - Maison Saclay"

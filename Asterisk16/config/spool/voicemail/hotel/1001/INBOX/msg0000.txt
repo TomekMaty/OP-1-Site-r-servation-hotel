@@ -1,0 +1,16 @@
+;
+; Message Information file
+;
+[message]
+origmailbox=1001
+context=hotel
+macrocontext=
+exten=1001
+priority=2
+callerchan=SIP/1099-00000001
+callerid=Reception <1099>
+origdate=Wed Jun 25 15:00:00 UTC 2026
+origtime=1750863600
+category=
+duration=8
+flag=

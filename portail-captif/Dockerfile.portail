@@ -1,0 +1,5 @@
+FROM php:8.2-fpm
+
+# PDO MySQL pour enregistrer les sessions WiFi en base
+# sockets pour envoyer les requêtes RADIUS en UDP (RFC 2865)
+RUN docker-php-ext-install pdo pdo_mysql sockets

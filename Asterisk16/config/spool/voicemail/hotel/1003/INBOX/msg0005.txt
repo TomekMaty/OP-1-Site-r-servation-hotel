@@ -1,0 +1,18 @@
+;
+; Message Information file
+;
+[message]
+origmailbox=1003
+context=hotel
+macrocontext=
+exten=1003
+rdnis=unknown
+priority=2
+callerchan=SIP/2001-0000001f
+callerid="Chambre 201" <2001>
+origdate=Tue Jun 30 09:22:42 AM UTC 2026
+origtime=1782811362
+category=
+msg_id=1782811362-0000000b
+flag=
+duration=8

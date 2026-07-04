@@ -1,0 +1,172 @@
+services:
+
+  # ── MySQL 8 ────────────────────────────────────────────────
+  mysql:
+    image: mysql:8.0
+    container_name: maison_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: rootsecret
+      MYSQL_DATABASE:      maison_saclay
+      MYSQL_USER:          saclay_user
+      MYSQL_PASSWORD:      saclay_pass
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./sql/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - ./sql/seed.sql:/docker-entrypoint-initdb.d/02-seed.sql:ro
+      - ./sql/03-physical-rooms.sql:/docker-entrypoint-initdb.d/03-physical-rooms.sql:ro
+    ports:
+      - "127.0.0.1:3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "saclay_user", "-psaclay_pass"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - hotel-net
+
+  # ── PHP 8.2-FPM (backend API) ──────────────────────────────
+  php:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: maison_php
+    restart: unless-stopped
+    volumes:
+      - ./backend:/var/www/backend
+      - ./.env:/var/www/.env:ro
+      - ./Asterisk16/config/spool:/var/spool/asterisk:ro
+    environment:
+      DB_HOST:            mysql
+      DB_PORT:            3306
+      DB_NAME:            maison_saclay
+      DB_USER:            saclay_user
+      DB_PASSWORD:        saclay_pass
+      JWT_SECRET:         ${JWT_SECRET}
+      ADMIN_PASSWORD:     ${ADMIN_PASSWORD}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_CHAT_ID:   ${TELEGRAM_CHAT_ID}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - hotel-net
+
+  # ── PHP 8.2-FPM (portail captif WiFi) ─────────────────────
+  portail-captif:
+    build:
+      context: ./portail-captif
+      dockerfile: Dockerfile.portail
+    container_name: maison_portail
+    restart: unless-stopped
+    volumes:
+      - ./portail-captif/portail:/var/www/portail
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - hotel-net
+
+  # ── Nginx (reverse proxy principal) ───────────────────────
+  nginx:
+    image: nginx:alpine
+    container_name: maison_nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    volumes:
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:ro
+      - ./maison-saclay/dist:/var/www/frontend/dist:ro
+      - ./backend/public:/var/www/backend/public:ro
+      - ./backend/src:/var/www/backend/src:ro
+      - ./portail-captif/portail:/var/www/portail:ro
+    depends_on:
+      - php
+      - portail-captif
+    networks:
+      - hotel-net
+
+  # ── Worker Telegram (répond aux clics boutons) ─────────────
+  worker:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: maison_worker
+    restart: unless-stopped
+    volumes:
+      - ./backend:/var/www/backend
+      - ./.env:/var/www/.env:ro
+    environment:
+      DB_HOST:            mysql
+      DB_PORT:            3306
+      DB_NAME:            maison_saclay
+      DB_USER:            saclay_user
+      DB_PASSWORD:        saclay_pass
+      JWT_SECRET:         ${JWT_SECRET}
+      TELEGRAM_BOT_TOKEN: ${TELEGRAM_BOT_TOKEN}
+      TELEGRAM_CHAT_ID:   ${TELEGRAM_CHAT_ID}
+    command: php /var/www/backend/worker.php
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - hotel-net
+
+  # ── phpMyAdmin (admin DB) ──────────────────────────────────
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: maison_phpmyadmin
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:80"
+    environment:
+      PMA_HOST:     mysql
+      PMA_USER:     saclay_user
+      PMA_PASSWORD: saclay_pass
+    depends_on:
+      - mysql
+    networks:
+      - hotel-net
+
+  # ── FreeRADIUS (authentification WiFi) ────────────────────
+  # Reçoit les requêtes RADIUS de la borne WiFi sur le port 1812 UDP
+  # La borne WiFi doit pointer vers 192.168.30.103:1812
+  # Secret partagé : hotelmrt2026
+  freeradius:
+    build:
+      context: ./freeradius
+      dockerfile: Dockerfile.freeradius
+    container_name: maison_freeradius
+    restart: unless-stopped
+    ports:
+      - "1812:1812/udp"
+      - "1813:1813/udp"
+    networks:
+      - hotel-net
+
+  # ── Asterisk 16 (téléphonie IP) ───────────────────────────
+  # Port mappings explicites nécessaires sur Docker Desktop Windows
+  # (network_mode: host ne bind PAS sur l'IP physique Windows)
+  asterisk:
+    image: andrius/asterisk:16
+    container_name: maison_asterisk
+    restart: unless-stopped
+    user: "0:0"
+    ports:
+      - "5060:5060/udp"
+      - "5060:5060/tcp"
+      - "10000-10050:10000-10050/udp"
+    volumes:
+      - ./Asterisk16/config:/etc/asterisk
+      - ./Asterisk16/config/sounds:/var/lib/asterisk/sounds
+      - ./Asterisk16/config/logs:/var/log/asterisk
+      - ./Asterisk16/config/spool:/var/spool/asterisk
+    networks:
+      - hotel-net
+
+networks:
+  hotel-net:
+    driver: bridge
+
+volumes:
+  mysql_data:

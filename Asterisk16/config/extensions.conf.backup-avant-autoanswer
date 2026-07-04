@@ -1,0 +1,97 @@
+; ============================================
+; FICHIER DE DIALPLAN (EXTENSIONS.CONF)
+; Projet OP-1 - Maison Saclay
+; Version Asterisk 16 avec chan_sip
+; ============================================
+; Extensions :
+;   1001-1003 → Chambres 101-103 (1er etage)
+;   2001-2003 → Chambres 201-203 (2eme etage)
+;   6001-6003 → Chambres 601-603 (6eme etage)
+;   1099      → Reception
+; ============================================
+
+[general]
+static=yes
+writeprotect=no
+
+; ============================================
+; CONTEXTE PRINCIPAL : hotel
+; Tous les telephones IP sont dans ce contexte
+; (defini dans sip.conf : context=hotel)
+; ============================================
+[hotel]
+
+; --------------------------------------------
+; APPEL VERS LA RECEPTION
+; Le client compose le 1099 depuis sa chambre
+; Asterisk fait sonner le telephone de la reception
+; Si pas de reponse en 30s → messagerie vocale boite 1099
+; --------------------------------------------
+exten => 1099,1,Dial(SIP/1099,30)
+ same => n,VoiceMail(1099@hotel,u)
+ same => n,Hangup()
+
+; --------------------------------------------
+; APPELS INTER-CHAMBRES
+; Etage 1 : 1001-1003 (chambres 101-103)
+; Etage 2 : 2001-2003 (chambres 201-203)
+; Etage 6 : 6001-6003 (chambres 601-603)
+; Si pas de reponse en 20s → messagerie vocale de la chambre appelee
+; Si chambre occupee : email client / sinon : email reception
+; --------------------------------------------
+exten => _100[1-3],1,Dial(SIP/${EXTEN},20)
+ same => n,VoiceMail(${EXTEN}@hotel,u)
+ same => n,Hangup()
+
+exten => _200[1-3],1,Dial(SIP/${EXTEN},20)
+ same => n,VoiceMail(${EXTEN}@hotel,u)
+ same => n,Hangup()
+
+exten => _600[1-3],1,Dial(SIP/${EXTEN},20)
+ same => n,VoiceMail(${EXTEN}@hotel,u)
+ same => n,Hangup()
+
+; Consultation messagerie vocale : composer *98 depuis n'importe quel poste
+exten => *98,1,VoiceMailMain(@hotel)
+ same => n,Hangup()
+
+; --------------------------------------------
+; ALARME INCENDIE
+; Declenchement en composant le *99
+; Fait sonner TOUS les telephones simultanement
+; et affiche "Alarme incendie" sur chaque ecran
+; --------------------------------------------
+exten => *99,1,NoOp(=== ALARME INCENDIE DECLENCHEE ===)
+ same => n,Set(CALLERID(all)=Alarme Incendie <999>)
+ same => n,Dial(SIP/1099&SIP/1001&SIP/1002&SIP/1003&SIP/2001&SIP/2002&SIP/2003&SIP/6001&SIP/6002&SIP/6003,30)
+ same => n,Hangup()
+
+; --------------------------------------------
+; NOTIFICATION ARRIVEE VISITEUR
+; La reception compose *9811XXX
+; ex: *9811001 pour prevenir la chambre 1001
+;     *9812001 pour prevenir la chambre 2001
+; Le telephone de la chambre sonne et affiche
+; "Votre contact est arrive"
+; --------------------------------------------
+exten => _*9811XXX,1,NoOp(=== VISITEUR ARRIVE POUR CHAMBRE ${EXTEN:4} ===)
+ same => n,Originate(SIP/${EXTEN:4},exten,visiteur,s,1,30,Reception <1099>,,,a)
+ same => n,Hangup()
+
+; ============================================
+; CONTEXTE ALARME
+; ============================================
+[alarme]
+exten => s,1,Answer()
+ same => n,SendText(Alarme incendie)
+ same => n,Wait(10)
+ same => n,Hangup()
+
+; ============================================
+; CONTEXTE VISITEUR
+; ============================================
+[visiteur]
+exten => s,1,Answer()
+ same => n,SendText(Votre contact est arrive)
+ same => n,Wait(5)
+ same => n,Hangup()

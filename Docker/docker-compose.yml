@@ -1,4 +1,0 @@
-include:
-  - path: ./site web/docker-compose.yml
-  - path: ./portail-captif/docker-compose.yml
-  - path: ./Asterisk16/docker-compose.yml

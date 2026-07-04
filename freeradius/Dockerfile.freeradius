@@ -1,0 +1,12 @@
+FROM freeradius/freeradius-server:latest
+
+# Copier et sécuriser nos fichiers de config
+# FreeRADIUS refuse de démarrer si clients.conf est world-writable (sécurité RFC)
+COPY clients.conf /etc/freeradius/clients.conf
+COPY users        /etc/freeradius/mods-config/files/authorize
+
+RUN chmod 640 /etc/freeradius/clients.conf \
+              /etc/freeradius/mods-config/files/authorize \
+ && chown freerad:freerad \
+          /etc/freeradius/clients.conf \
+          /etc/freeradius/mods-config/files/authorize
